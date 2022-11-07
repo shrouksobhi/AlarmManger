@@ -15,14 +15,13 @@ private val NOTIFICATION_ID = 0
 
 fun NotificationManager.sendNotification(
     messageBody: String,
-    status: String,
+
     applicationContext: Context
 ) {
     // Create the content intent for the notification, which launches
     // this activity
     val contentIntent = Intent(applicationContext, DetailActivity::class.java)
     contentIntent.putExtra("title", messageBody)
-    contentIntent.putExtra("status", status)
     val contentPendingIntent = PendingIntent.getActivity(
         applicationContext,
         NOTIFICATION_ID,

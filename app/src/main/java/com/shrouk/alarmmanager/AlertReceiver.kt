@@ -18,8 +18,10 @@ class AlertReceiver:BroadcastReceiver() {
             context,
             NotificationManager::class.java
         ) as NotificationManager
+        createDownloadNotificationChannel(context)
 
-        notificationManager.sendNotification("Alarm just fired","")
+        //notificationManager.createNotificationChannel()
+        notificationManager.sendNotification("Alarm just fired",context)
             Log.d("Alarm Ring", "Alarm just fired")
 
 

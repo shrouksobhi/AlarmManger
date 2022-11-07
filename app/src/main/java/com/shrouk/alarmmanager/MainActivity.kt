@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         btnstart = findViewById(R.id.btnstartalarm)
 
         btncancel.setOnClickListener {
-            cancrlAlarm()
+            cancelAlarm()
         }
         btnstart.setOnClickListener {
             val picker =
@@ -45,11 +45,12 @@ class MainActivity : AppCompatActivity() {
 
             picker.addOnPositiveButtonClickListener{
                 val selectedTime = Calendar.getInstance()
-                selectedTime[2022, 11, 7, picker.hour, picker.minute] = 0
+                selectedTime[0, 0, 0, picker.hour, picker.minute] = 0
 //                    selectedTime.set(HOURS,picker.hour)
                 val formattedTime = SimpleDateFormat("hh:mm:ss a", Locale.getDefault()).format(selectedTime.time)
                 Log.e("TIME",selectedTime.timeInMillis.toString())
                 alarmtextview.text="Alarm set to "+formattedTime
+
                     setAlarm(selectedTime.timeInMillis)
                 }
 
@@ -76,11 +77,17 @@ class MainActivity : AppCompatActivity() {
             AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
+        //alarmManager.setExact(AlarmManager.RTC_WAKEUP,timeInMillis,pendingIntent)
         Toast.makeText(this, "Alarm is set", Toast.LENGTH_SHORT).show()
     }
 
 
-    private fun cancrlAlarm() {
+    private fun cancelAlarm() {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, AlertReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+
+        alarmManager.cancel(pendingIntent)
     }
 }
 //private class MyAlarm : BroadcastReceiver() {
