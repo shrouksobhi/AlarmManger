@@ -35,7 +35,7 @@ fun NotificationManager.sendNotification(
         "123456"
     )
         .setSmallIcon(androidx.loader.R.drawable.notification_bg)
-        .setContentTitle("applicationContext.getString(R.string.notification_title)")
+        .setContentTitle("Alarm Manager just fired..")
         .setContentText(messageBody)
         .setContentIntent(contentPendingIntent)
         .setAutoCancel(true)
